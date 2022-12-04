@@ -1,1 +1,0 @@
-"# DEND-CloudDWHRedshift" 
