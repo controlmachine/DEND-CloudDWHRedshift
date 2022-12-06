@@ -3,19 +3,34 @@ import psycopg2
 from sql_queries import create_table_queries, drop_table_queries
 
 
-def drop_tables(cur, conn):
+def drop_tables(cur: psycopg2.extensions.cursor, conn: psycopg2.extensions.connection) -> None:
     for query in drop_table_queries:
         cur.execute(query)
         conn.commit()
 
 
-def create_tables(cur, conn):
+def create_tables(cur: psycopg2.extensions.cursor, conn: psycopg2.extensions.connection) -> None:
+    """
+    Creates each table using the queries in 'create_table_queries' list. 
+    """
     for query in create_table_queries:
         cur.execute(query)
         conn.commit()
 
 
 def main():
+    """
+    - Drops (if exists) and Creates the sparkify database. 
+    
+    - Establishes connection with the sparkify database and gets
+    cursor to it.  
+    
+    - Drops all the tables.  
+    
+    - Creates all tables needed. 
+    
+    - Finally, closes the connection. 
+    """
     config = configparser.ConfigParser()
     config.read('dwh.cfg')
 
